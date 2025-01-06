@@ -19,14 +19,11 @@ class TelefoneTest extends TestCase {
    }
 
    public function testTelefoneDevePoderSerRepresentadoComoString() {
-      // Exemplo de DDD e telefone válidos
-      $validDDD = '11'; // DDD válido
-      $validTelefone = '912345678'; // Telefone válido (9 dígitos)
-  
-      // Criando uma instância da classe Telefone
+      $validDDD = '11';
+      $validTelefone = '912345678';
+
       $telefone = new Telefone($validDDD, $validTelefone);
-  
-      // Espera que o telefone seja representado como uma string no formato DDD + Telefone
+      
       $this->assertSame('(11) 912345678', (string) $telefone);
    }
 }
