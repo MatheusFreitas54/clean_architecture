@@ -17,7 +17,13 @@ class CpfTest extends TestCase {
 
    public function testCpfDevePoderSerRepresentadoComoString() {
       
-      $cpf = new Cpf('123.456.789-10');
-      $this->assertSame('123.456.789-10', (string) $cpf);
+      $cpf = new Cpf('271.094.450-20');
+      $this->assertSame('271.094.450-20', (string) $cpf);
+   }
+
+   public function testCpfDevePoderSerRepresentadoComoStringSegundaVersao() {
+      
+      $cpf = new Cpf('27109445020');
+      $this->assertSame('27109445020', (string) $cpf);
    }
 }
