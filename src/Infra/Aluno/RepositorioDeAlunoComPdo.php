@@ -12,11 +12,9 @@ class RepositorioDeAlunoComPdo implements RepositorioDeAluno {
    private \PDO $conexao;
 
    public function __construct(\PDO $conexao) {
-
       $this->conexao = $conexao;
    }
    
-
    public function adicionar(Aluno $aluno): void {
 
       // $this->conexao->beginTransaction();
@@ -28,14 +26,14 @@ class RepositorioDeAlunoComPdo implements RepositorioDeAluno {
       $stmt->bindValue('email', $aluno->email());
       $stmt->execute();
 
+      $sql = 'INSERT INTO telefones VALUES (:ddd, :numero, :cpf_aluno)';
+      $stmt = $this->conexao->prepare($sql);
+      $stmt->bindValue('cpf_aluno', $aluno->cpf());
+
       /** @var Telefone $telefone */
       foreach ($aluno->telefones() as $telefone) {
-
-         $sql = 'INSERT INTO telefones VALUES (:ddd, :numero, :cpf_aluno)';
-         $stmt = $this->conexao->prepare($sql);
          $stmt->bindValue('ddd', $telefone->ddd());
          $stmt->bindValue('numero', $telefone->telefone());
-         $stmt->bindValue('cpf_aluno', $aluno->cpf());
          $stmt->execute();
       }
 
@@ -43,11 +41,65 @@ class RepositorioDeAlunoComPdo implements RepositorioDeAluno {
    }
 
    public function buscarPorCpf(Cpf $cpf): Aluno {
-      $aluno = Aluno::comCpfNomeEEmail('1231321', 'Matheus', 'Matheus@gmail.com.br');
+      $sql = 'SELECT cpf, nome, email FROM alunos WHERE cpf = :cpf';
+      $stmt = $this->conexao->prepare($sql);
+      $stmt->bindValue('cpf', $cpf->numero());
+      $stmt->execute();
+      $dadosAluno = $stmt->fetch(\PDO::FETCH_ASSOC);
+
+      if (!$dadosAluno) {
+         throw new \DomainException("Aluno com CPF {$cpf->numero()} não encontrado.");
+      }
+
+      $aluno = Aluno::comCpfNomeEEmail($dadosAluno['cpf'],$dadosAluno['nome'],$dadosAluno['email']);
+
+      // Busca os telefones do aluno
+      $telefones = $this->buscarTelefonePdo($dadosAluno['cpf']);
+
+      if (!empty($telefones)) {
+         foreach ($telefones as $telefone) {
+            $aluno->adicionarTelefone($telefone['ddd'], $telefone['numero']);
+         }
+      }
+
       return $aluno;
    }
 
    public function buscarTodos(): array {
-      return [];
+      $sql = 'SELECT cpf, nome, email FROM alunos';
+      $stmt = $this->conexao->query($sql);
+      $dadosAlunos = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+
+      $alunos = [];
+
+      foreach ($dadosAlunos as $dadosAluno) {
+
+         $aluno = Aluno::comCpfNomeEEmail($dadosAluno['cpf'],$dadosAluno['nome'],$dadosAluno['email']);
+
+         // Busca os telefones de cada aluno
+         $telefones = $this->buscarTelefonePdo($dadosAluno['cpf']);
+         
+         if (!empty($telefones)) {
+            foreach ($telefones as $telefone) {
+               $aluno->adicionarTelefone($telefone['ddd'], $telefone['numero']);
+            }
+         }
+
+         $alunos[] = $aluno;
+      }
+
+      return $alunos;
    }
+
+   public function buscarTelefonePdo(string $cpf): array {
+
+      $sqlTelefones = 'SELECT ddd, numero FROM telefones WHERE cpf_aluno = :cpf';
+      $stmtTelefones = $this->conexao->prepare($sqlTelefones);
+      $stmtTelefones->bindValue('cpf', $cpf);
+      $stmtTelefones->execute();
+
+      return $stmtTelefones->fetchAll(\PDO::FETCH_ASSOC);
+
+   }
+
 }

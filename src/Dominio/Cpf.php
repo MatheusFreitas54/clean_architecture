@@ -50,8 +50,11 @@ class Cpf implements \Stringable {
       return true;
    }
 
-   public function __toString(): string
-   {
+   public function numero(): string {
+      return $this->cpf;
+   }
+
+   public function __toString(): string {
       return $this->cpf;
    }
 }
