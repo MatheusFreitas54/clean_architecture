@@ -33,6 +33,22 @@ class Aluno {
 
    }
 
+   public function cpf(): string {
+      return $this->cpf;
+   }
+
+   public function nome(): string {
+      return $this->nome;
+   }
+
+   public function email(): string {
+      return $this->email;
+   }
+
+   public function telefones(): array {
+      return $this->telefones;
+   }
+
 }
 
 

@@ -20,6 +20,14 @@ class Telefone implements \Stringable {
       $this->telefone = $telefone;
    }
 
+   public function ddd(): string {
+      return $this->ddd;
+   }
+
+   public function telefone(): string {
+      return $this->telefone;
+   }
+
    public function __toString(): string
    {
       return "({$this->ddd}) {$this->telefone}";
