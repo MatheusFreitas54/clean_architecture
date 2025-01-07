@@ -16,11 +16,12 @@ class Telefone implements \Stringable {
          throw new \InvalidArgumentException('Telefone inválido. Deve ter 8 ou 9 dígitos numéricos.');
       }
 
-      $this->telefone ="($ddd) $telefone";
+      $this->ddd = $ddd;
+      $this->telefone = $telefone;
    }
 
    public function __toString(): string
    {
-      return $this->telefone;
+      return "({$this->ddd}) {$this->telefone}";
    }
 }
