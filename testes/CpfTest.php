@@ -4,7 +4,7 @@ namespace Alura\Arquitetura\testes;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Alura\Arquitetura\Cpf;
+use Alura\Arquitetura\Dominio\Cpf;
 USE PHPUnit\Framework\TestCase;
 
 class CpfTest extends TestCase {

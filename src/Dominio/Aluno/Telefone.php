@@ -1,6 +1,6 @@
 <?php
 
-namespace Alura\Arquitetura;
+namespace Alura\Arquitetura\Dominio\Aluno;
 
 class Telefone implements \Stringable {
    private string $ddd;

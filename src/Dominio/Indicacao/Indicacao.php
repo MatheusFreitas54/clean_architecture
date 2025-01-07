@@ -1,6 +1,8 @@
 <?php
 
-namespace Alura\Arquitetura;
+namespace Alura\Arquitetura\Dominio\Indicacao;
+
+use Alura\Arquitetura\Dominio\Aluno\Aluno;;
 
 class Indicacao {
    private Aluno $indicante;
@@ -15,9 +17,7 @@ class Indicacao {
       
    }
 
-   public function __toString(): string {
-
-      return '';
-
-   }
+   // public function __toString(): string {
+   //    return '';
+   // }
 }

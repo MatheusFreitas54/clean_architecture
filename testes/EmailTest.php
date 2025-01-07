@@ -4,7 +4,7 @@ namespace Alura\Arquitetura\Testes;
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Alura\Arquitetura\Email;
+use Alura\Arquitetura\Dominio\Email;
 USE PHPUnit\Framework\TestCase;
 
 class EmailTest extends TestCase {

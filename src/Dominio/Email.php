@@ -1,6 +1,6 @@
 <?php
 
-namespace Alura\Arquitetura;
+namespace Alura\Arquitetura\Dominio;
 
 class Email implements \Stringable {
    private string $endereco;
