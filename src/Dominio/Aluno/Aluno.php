@@ -9,7 +9,7 @@ class Aluno {
    private Cpf $cpf;
    private string $nome;
    private Email $email;
-   private array $telefones;
+   private array $telefones = [];
 
    public static function comCpfNomeEEmail(string $cpf, string $nome, string $email): self {
 
@@ -22,6 +22,7 @@ class Aluno {
       $this->cpf = $cpf;
       $this->nome = $nome;
       $this->email = $email;
+      $this->telefones = [];
 
    }
    

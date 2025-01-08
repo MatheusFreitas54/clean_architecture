@@ -1,11 +1,11 @@
 <?php
 
-namespace Alura\Arquitetura\Testes;
+namespace Alura\Arquitetura\Testes\Dominio;
 
-require_once __DIR__ . '/../vendor/autoload.php';
+require_once __DIR__ . '/../../vendor/autoload.php';
 
 use Alura\Arquitetura\Dominio\Email;
-USE PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class EmailTest extends TestCase {
 

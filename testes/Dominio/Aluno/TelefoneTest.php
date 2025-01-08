@@ -1,11 +1,11 @@
 <?php
 
-namespace Alura\Arquitetura\Aluno\Testes;
+namespace Alura\Arquitetura\Testes\Dominio\Aluno;
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use Alura\Arquitetura\Dominio\Aluno\Telefone;
-USE PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class TelefoneTest extends TestCase {
 
